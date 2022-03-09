@@ -1,12 +1,12 @@
 package com.edgars.CarShare.models;
 
+import com.edgars.CarShare.enums.FuelType;
+import com.edgars.CarShare.enums.Gearbox;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Range;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 @Entity
@@ -27,10 +27,12 @@ public class Car {
     private Integer yearMade;
     @NotBlank
     @Getter @Setter
-    private String fuelType;
+    @Enumerated(value = EnumType.STRING)
+    private FuelType fuelType;
     @NotBlank
     @Getter @Setter
-    private String gearbox;
+    @Enumerated(value = EnumType.STRING)
+    private Gearbox gearbox;
     @NotBlank
     @Pattern(regexp = "[0-9]")
     @Getter @Setter
@@ -42,7 +44,7 @@ public class Car {
     @Getter @Setter
     private String imageUrl;
 
-    public Car(String maker, String model, Integer yearMade, String fuelType, String gearbox, Integer seats, Integer priceFor1H, Integer priceFor24h, String imageUrl) {
+    public Car(String maker, String model, Integer yearMade, FuelType fuelType, Gearbox gearbox, Integer seats, Integer priceFor1H, Integer priceFor24h, String imageUrl) {
         this.maker = maker;
         this.model = model;
         this.yearMade = yearMade;
