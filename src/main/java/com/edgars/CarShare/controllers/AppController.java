@@ -8,10 +8,7 @@ import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -38,7 +35,7 @@ public class AppController {
     }
 
     @PostMapping("/add-user")
-    public String saveUser(@ModelAttribute("employee") User user){
+    public String saveUser(@ModelAttribute("user") User user){
         userServiceImpl.addUser(user);
         return "redirect:/car/car-list";
     }
@@ -47,5 +44,15 @@ public class AppController {
         List<User> userList = userServiceImpl.showAllUsers();
         model.addAttribute("userList", userList);
         return "user-list";
+    }
+    @GetMapping("/delete")
+    public String deleteAllUsers(){
+        userServiceImpl.deleteAllUsers();
+        return "redirect:/user-list";
+    }
+    @GetMapping("/deleteUser")
+    public String deleteUser(@RequestParam("userId") Long id){
+        userServiceImpl.deleteUser(id);
+        return "redirect:/user-list";
     }
 }

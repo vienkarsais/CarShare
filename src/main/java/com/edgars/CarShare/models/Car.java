@@ -4,11 +4,10 @@ import com.edgars.CarShare.enums.FuelType;
 import com.edgars.CarShare.enums.Gearbox;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.validator.constraints.Range;
-
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
+
 @Entity
 public class Car {
     @Id
@@ -16,30 +15,28 @@ public class Car {
     @Getter @Setter
     private Long id;
     @NotBlank
-    @Range(min = 2)
     @Getter @Setter
     private String maker;
     @NotBlank
     @Getter @Setter
     private String model;
-    @NotBlank
     @Getter @Setter
+    @Min(value = 1970, message = "Made year from 1970")
     private Integer yearMade;
-    @NotBlank
     @Getter @Setter
     @Enumerated(value = EnumType.STRING)
     private FuelType fuelType;
-    @NotBlank
     @Getter @Setter
     @Enumerated(value = EnumType.STRING)
     private Gearbox gearbox;
-    @NotBlank
-    @Pattern(regexp = "[0-9]")
+    @Min(value = 1, message = "There should be at least drivers seat ;)")
     @Getter @Setter
     private Integer seats;
     @Getter @Setter
+    @Min(value = 0, message = "only positive number")
     private Integer priceFor1H;
     @Getter @Setter
+    @Min(value = 0, message = "only positive number")
     private Integer priceFor24h;
     @Getter @Setter
     private String imageUrl;
