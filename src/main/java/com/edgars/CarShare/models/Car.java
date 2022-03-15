@@ -41,7 +41,9 @@ public class Car {
     @Getter @Setter
     private String imageUrl;
 
-    public Car(String maker, String model, Integer yearMade, FuelType fuelType, Gearbox gearbox, Integer seats, Integer priceFor1H, Integer priceFor24h, String imageUrl) {
+    public Car(String maker, String model, Integer yearMade,
+               FuelType fuelType, Gearbox gearbox, Integer seats,
+               Integer priceFor1H, Integer priceFor24h, String imageUrl) {
         this.maker = maker;
         this.model = model;
         this.yearMade = yearMade;

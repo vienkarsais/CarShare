@@ -17,46 +17,47 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.server.csrf.CookieServerCsrfTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import java.util.concurrent.TimeUnit;
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    public final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public ApplicationSecurityConfig(PasswordEncoder passwordEncoder){
+    public ApplicationSecurityConfig(PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                /*.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                .and()*/
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/signup", "/index", "/css/*", "js/*", "/add-user").permitAll()
+                .antMatchers("/", "index", "/css/*", "/js/*", "/add-user", "/signup").permitAll()
                 .antMatchers("/car/**").hasRole(UserRoles.ADMIN.name())
                 .anyRequest()
                 .authenticated()
                 .and()
                 .formLogin()
-                    .loginPage("/index")
-                    .permitAll()
-                    .defaultSuccessUrl("/car/car-list", true)
-                    .usernameParameter("email")
-                    .passwordParameter("password")
+                .loginPage("/index")
+                .permitAll()
+                .defaultSuccessUrl("/car/car-list", true)
+                .passwordParameter("password")
+                .usernameParameter("username")
                 .and()
                 .rememberMe()
+                .rememberMeParameter("remember-me")
                 .and()
-                    .logout()
-                    .logoutUrl("/logout")
-                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET")) //delete after enable csrf
-                    .clearAuthentication(true)
-                    .invalidateHttpSession(true)
-                    .deleteCookies("JSESSIONID", "remember-me")
-                    .logoutSuccessUrl("/index");
+                .logout()
+                .logoutUrl("/logout")
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET")) // https://docs.spring.io/spring-security/site/docs/4.2.12.RELEASE/apidocs/org/springframework/security/config/annotation/web/configurers/LogoutConfigurer.html
+                .clearAuthentication(true)
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID", "remember-me")
+                .logoutSuccessUrl("/login");
     }
 
     @Override

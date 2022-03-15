@@ -2,7 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"><head>
     <meta charset="UTF-8">
     <title>Show all users</title>
-    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}"/>
+    <!--<link rel="stylesheet" th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}"/>-->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">
 </head>
 <body style="background-color: lightslategrey">
 <h1 class="text-white">User list</h1>
@@ -37,7 +40,7 @@
             <td><span th:text="${user.password}"> password </span></td>
             <td><span th:text="${user.licenceNumber}"> Licence Nr </span></td>
             <td><span th:text="${user.phoneNumber}"> Phone Nr </span></td>
-            <td><a th:href="@{/delete(userId=${user.id})}"
+            <td><a th:href="@{/deleteUser(UserId=${user.id})}"
                 class="btn btn-danger btn-sm mb-3"
                 onclick="if ( !(confirm('Are you sure you want to delete this user?'))) return false">
                 Delete this user

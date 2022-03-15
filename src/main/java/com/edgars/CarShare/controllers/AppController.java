@@ -38,7 +38,7 @@ public class AppController {
         return "redirect:/car/car-list";
     }
     @GetMapping("/user-list")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    //@PreAuthorize("hasRole('ROLE_ADMIN')")
     public String allUsers(Model model){
         List<User> userList = userServiceImpl.showAllUsers();
         model.addAttribute("userList", userList);
@@ -52,8 +52,8 @@ public class AppController {
         return "redirect:/user-list";
     }
     @GetMapping("/deleteUser")
-    @PreAuthorize("hasAuthority('USER_WRITE')")
-    public String deleteUser(@RequestParam("userId") Long id){
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public String deleteUser(@RequestParam("UserId") Long id){
         userServiceImpl.deleteUser(id);
         return "redirect:/user-list";
     }
