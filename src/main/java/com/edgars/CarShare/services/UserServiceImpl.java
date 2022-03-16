@@ -21,6 +21,8 @@ public class UserServiceImpl implements UserService{
         this.encoder = encoder;
     }
     public User addUser(User user){
+
+
         final String encodePassword = encoder.encode(user.getPassword());
         user.setPassword(encodePassword);
         return userRepository.save(user);

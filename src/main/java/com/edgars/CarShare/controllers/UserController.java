@@ -7,34 +7,34 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
 @Slf4j
-public class AppController {
+@RequestMapping("/user")
+public class UserController {
     private UserService userServiceImpl;
 
     @Autowired
-    public AppController(UserService userServiceImpl) {
+    public UserController(UserService userServiceImpl) {
         this.userServiceImpl = userServiceImpl;
     }
 
-    @GetMapping("/")
-    public String index(Model model){
-        return "login";
-    }
-    @GetMapping("/signup")
-    public String showSignupForm(User user, Model model){
-
-        model.addAttribute("user", user);
-        return "add-user";
-    }
-
-    @PostMapping("/add-user")
-    public String saveUser(@ModelAttribute("user") User user){
+    @PostMapping("/add")
+    public String saveUser(@Valid @ModelAttribute("user") User user, BindingResult result){
+        if (result.hasErrors()){
+            return "redirect:/add-user";
+        }
         userServiceImpl.addUser(user);
+        return "redirect:/car/car-list";
+    }
+    @PutMapping("/update")
+    public String updateUser(@ModelAttribute("user") User user) {
+        userServiceImpl.updateUser(user);
         return "redirect:/car/car-list";
     }
     @GetMapping("/user-list")
@@ -49,12 +49,12 @@ public class AppController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String deleteAllUsers(){
         userServiceImpl.deleteAllUsers();
-        return "redirect:/user-list";
+        return "redirect:/user/user-list";
     }
     @GetMapping("/deleteUser")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String deleteUser(@RequestParam("UserId") Long id){
         userServiceImpl.deleteUser(id);
-        return "redirect:/user-list";
+        return "redirect:/user/user-list";
     }
 }

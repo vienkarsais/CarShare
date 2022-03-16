@@ -36,8 +36,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "index", "/css/*", "/js/*", "/add-user", "/signup").permitAll()
-                .antMatchers("/car/**").hasRole(UserRoles.ADMIN.name())
+                .antMatchers("/", "index", "/css/*", "/js/*", "/user/add", "add-user", "/signup").permitAll()
+                //.antMatchers("/car/**").hasRole(UserRoles.ADMIN.name())
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -59,7 +59,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .deleteCookies("JSESSIONID", "remember-me")
                 .logoutSuccessUrl("/login");
     }
-
+    //TODO- enable fetching username(email) and password from database
     @Override
     @Bean
     protected UserDetailsService userDetailsService() {

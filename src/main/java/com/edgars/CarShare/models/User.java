@@ -1,13 +1,12 @@
 package com.edgars.CarShare.models;
 
+import com.edgars.CarShare.validators.EmailConstraint;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Slf4j
@@ -20,8 +19,12 @@ public class User {
     @Setter @Getter
     private String name;
     @Setter @Getter
+    @NotNull
+    @Column(unique = true)
+    @EmailConstraint
     private String email;
     @Setter @Getter
+    @NotNull
     private String password;
     @Setter @Getter
     private String licenceNumber;
