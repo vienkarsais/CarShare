@@ -21,9 +21,9 @@ public class AppController {
         this.userServiceImpl = userServiceImpl;
     }
 
-    @GetMapping("/index")
+    @GetMapping("/")
     public String index(Model model){
-        return "index";
+        return "login";
     }
     @GetMapping("/signup")
     public String showSignupForm(User user, Model model){

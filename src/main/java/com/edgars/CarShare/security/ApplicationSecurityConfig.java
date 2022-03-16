@@ -42,7 +42,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/index")
+                .loginPage("/login")
                 .permitAll()
                 .defaultSuccessUrl("/car/car-list", true)
                 .passwordParameter("password")
