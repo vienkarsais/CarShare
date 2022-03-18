@@ -13,12 +13,18 @@ public class EmailValidator implements ConstraintValidator<EmailConstraint, Stri
     }
 
     @Override
-    public void initialize(EmailConstraint email) {
+    public void initialize(EmailConstraint username) {
 
     }
 
     @Override
-    public boolean isValid(String contactField, ConstraintValidatorContext cxt) {
-        return contactField != null && contactField.matches(userRepo.findByEmail(contactField).getEmail());
+    public boolean isValid(String contactField, ConstraintValidatorContext constraintValidatorContext) {
+        return true;
     }
+
+    /*@Override
+    public boolean isValid(String contactField, ConstraintValidatorContext cxt) {
+        return contactField != null && contactField.matches(userRepo.findByUsername(contactField).ge);
+
+    }*/
 }

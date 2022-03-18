@@ -21,8 +21,8 @@ public class User {
     @Setter @Getter
     @NotNull
     @Column(unique = true)
-    @EmailConstraint
-    private String email;
+    //@EmailConstraint
+    private String username;
     @Setter @Getter
     @NotNull
     private String password;
@@ -31,9 +31,9 @@ public class User {
     @Setter @Getter
     private Integer phoneNumber;
 
-    public User(String name, String email, String password, String licenceNumber, Integer phoneNumber) {
+    public User(String name, String username, String password, String licenceNumber, Integer phoneNumber) {
         this.name = name;
-        this.email = email;
+        this.username = username;
         this.password = password;
         this.licenceNumber = licenceNumber;
         this.phoneNumber = phoneNumber;
